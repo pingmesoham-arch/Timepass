@@ -1,0 +1,32 @@
+<project name="HelloWorldProject" default="run" basedir=".">
+
+    <!-- Property definitions -->
+    <property name="src.dir" value="."/>
+    <property name="build.dir" value="build"/>
+
+    <!-- Clean the build directory -->
+    <target name="clean" description="Cleans the build directory">
+        <echo message="Cleaning the build directory: ${build.dir}"/>
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <!-- Compile the Java program -->
+    <target name="compile" description="Compiles the Java source files" depends="clean">
+        <echo message="Compiling Java source files in ${src.dir}..."/>
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false"/>
+        <echo message="Java files compiled and placed in ${build.dir}"/>
+    </target>
+
+    <!-- Run the compiled Java program -->
+    <target name="run" description="Runs the compiled Java program" depends="compile">
+        <echo message="Running the Java program..."/>
+        <java classname="Main" fork="true">
+            <classpath>
+                <pathelement path="${build.dir}"/>
+            </classpath>
+        </java>
+        <echo message="Java program executed successfully"/>
+    </target>
+
+</project>
